@@ -4,12 +4,17 @@ import com.techbow.datadashboard.model.dao.DataDao;
 import com.techbow.datadashboard.model.dao.impl.DataHashMapDao;
 import com.techbow.datadashboard.model.dvo.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController //:== @Controller + @ResponseBody
+@RequestMapping("api/v1")
 public class DataDashboardController {
 
+    @Qualifier("dataJpaDao")
     @Autowired
     private DataDao dataDao;
 
@@ -23,18 +28,12 @@ public class DataDashboardController {
         return dataDao.findById(id);
     }
 
-
-
-
-    @GetMapping("hello")
-    public String hello() {
-        return "Hello";
+    @GetMapping("/data")
+    public List<Data> getAllData(@RequestParam(name = "limit", required = false) String limit) {
+        return dataDao.findAll(limit);
     }
-
-
-    @GetMapping("hello/{name}")
-    public String hello2(@PathVariable String name) {
-        return "Hello" + name;
+    @GetMapping("data/client/{clientId}")
+    public List<Data> findDataByClientId(Long clientId) {
+        return null;
     }
-
 }

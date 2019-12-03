@@ -5,6 +5,7 @@ import com.techbow.datadashboard.model.dvo.Data;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -29,4 +30,7 @@ public class DataHashMapDao implements DataDao {
     public Data findById(Long id) {
         return map.get(id);
     }
+
+    @Override
+    public List<Data> findAll() {}
 }
